@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Neue Position";
+}
+@model TestProject.Models.Position
+
+<div class="row justify-content-center">
+    <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12">
+        <h1>Einkaufsliste</h1>
+        <h5 class="bg-primary text-white text-center">Neue Position</h5>
+        <form asp-action="ArtikelForm" method="post">
+            <div class="mb-1">
+                <label class="form-label" asp-for="Name"></label>
+                <input class="form-control" asp-for="Name"/>
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="mb-1">
+                <label class="form-label" asp-for="Anzahl"></label>
+                <input class="form-control" asp-for="Anzahl"/>
+                <span asp-validation-for="Anzahl"></span>
+            </div>
+            <div class="mb-1">
+                <label class="form-label" asp-for="Geschaeft"></label>
+                <input class="form-control" asp-for="Geschaeft"/>
+                <span asp-validation-for="Geschaeft"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Speichern</button>
+            <a asp-action="Index" class="btn btn-danger">Zurück</a>
+        </form>
+    </div>
+</div>

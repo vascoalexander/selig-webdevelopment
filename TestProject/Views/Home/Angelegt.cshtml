@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Neue Position";
+}
+
+@model AngelegtViewModel
+
+<div class="text-center">
+    <h1>Einkaufsliste</h1>
+    <p>Die Position '@Model.LastPosition?.Name' wurde gespeichert</p>
+    <p>Es befinden sich jetzt @Model.PositionAnzahl Artikel auf der Liste</p>
+    <a asp-action="Index" class="btn btn-primary">Zurück</a>
+    <a asp-action="ArtikelForm" class="btn btn-success">Weiterer Artikel</a>
+</div>
+

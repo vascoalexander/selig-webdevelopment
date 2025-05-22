@@ -1,31 +1,65 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TestProject.Models;
+using TestProject.ViewModels;
 
 namespace TestProject.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
-
     public IActionResult Index()
     {
         return View();
     }
 
-    public IActionResult Privacy()
+    public IActionResult ArtikelForm()
     {
         return View();
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [HttpPost]
+    public IActionResult ArtikelForm(Position position)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        if (ModelState.IsValid)
+        {
+            Repository.AddPosition(position);
+            var vm = new AngelegtViewModel()
+            {
+                LastPosition = position,
+                PositionAnzahl = Repository.Positions.Count()
+            };
+            return View("Angelegt", vm);
+        }
+
+        return View();
+    }
+
+    public IActionResult ArtikelAnsehen()
+    {
+        var liste = Repository.Positions
+            .GroupBy(p => p.Geschaeft);
+        return View(liste);
+    }
+
+    public IActionResult ArtikelLoeschen(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        Repository.ArtikelLoeschen((int)id);
+        return RedirectToAction(nameof(ArtikelAnsehen));
+    }
+
+    public IActionResult IncreaseArticleCount(int? id)
+    {
+        Repository.IncreaseArticleCount((int)id);
+        return RedirectToAction(nameof(ArtikelAnsehen));
+    }
+    public IActionResult DecreaseArticleCount(int? id)
+    {
+        Repository.DecreaseArticleCount((int)id);
+        return RedirectToAction(nameof(ArtikelAnsehen));
     }
 }
