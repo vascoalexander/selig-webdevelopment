@@ -25,9 +25,9 @@
             {
                 <tr>
                     <td>@pos.Name</td>
-                    <td><a asp-action="DecreaseArticleCount" class="btn btn-sm btn-danger" asp-route-id="@pos.ID">-</a></td>
+                    <td><a asp-action="DecreaseArticleCount" class="btn btn-sm btn-danger @(pos.Anzahl == 1 ? "disabled" : "")" asp-route-id="@pos.ID">-</a></td>
                     <td>@pos.Anzahl</td>
-                    <td><a asp-action="IncreaseArticleCount" class="btn btn-sm btn-success" asp-route-id="@pos.ID">+</a></td>
+                    <td><a asp-action="IncreaseArticleCount" class="btn btn-sm btn-success @(pos.Anzahl == 50 ? "disabled" : "")" asp-route-id="@pos.ID">+</a></td>
                     <td><a asp-action="ArtikelLoeschen" class="btn btn-sm btn-danger" asp-route-id="@pos.ID">X</a></td>
                 </tr>
             }
