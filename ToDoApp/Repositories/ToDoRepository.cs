@@ -1,54 +1,46 @@
 using ToDoApp.Models;
+using ToDoApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ToDoApp.Repositories;
 
 public class ToDoRepository
 {
-    private readonly List<ToDoItem> _items;
-    private int _nextId = 1;
-
-    public ToDoRepository()
+    private readonly ApplicationDbContext _context;
+    public ToDoRepository(ApplicationDbContext context)
     {
-        _items = new List<ToDoItem>()
-        {
-            new ToDoItem { Id = _nextId++, Title = "Einkaufen gehen", IsDone = false },
-            new ToDoItem { Id = _nextId++, Title = "C# lernen", IsDone = true },
-            new ToDoItem { Id = _nextId++, Title = "Sport machen", IsDone = false }
-        };
+        _context = context;
     }
 
-    public IEnumerable<ToDoItem> GetAll()
+    public async Task<IEnumerable<ToDoItem>> GetAll()
     {
-        return _items.OrderBy(i => i.Id);
+        return await _context.ToDoItems.OrderBy(i => i.Id).ToListAsync();
     }
 
-    public ToDoItem GetById(int id)
+    public async Task<ToDoItem?> GetById(int id)
     {
-        return _items.FirstOrDefault(i => i.Id == id)!;
+        return await _context.ToDoItems.FirstOrDefaultAsync(i => i.Id == id);
     }
 
-    public void Add(ToDoItem item)
+    public async Task Add(ToDoItem item)
     {
-        item.Id = _nextId++;
-        _items.Add(item);
+        _context.ToDoItems.Add(item);
+        await _context.SaveChangesAsync();
     }
 
-    public void Update(ToDoItem item)
+    public async Task Update(ToDoItem item)
     {
-        var existingItem = GetById(item.Id);
-        if (existingItem != null)
-        {
-            existingItem.Title = item.Title;
-            existingItem.IsDone = item.IsDone;
-        }
+        _context.ToDoItems.Update(item);
+        await _context.SaveChangesAsync();
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
-        var itemToRemove = GetById(id);
+        var itemToRemove = await _context.ToDoItems.FirstOrDefaultAsync(i => i.Id == id);
         if (itemToRemove != null)
         {
-            _items.Remove(itemToRemove);
+            _context.ToDoItems.Remove(itemToRemove);
+            await _context.SaveChangesAsync();
         }
     }
 }

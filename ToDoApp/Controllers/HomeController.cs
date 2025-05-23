@@ -15,9 +15,9 @@ public class HomeController : Controller
         _repository = repository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var todoItems = _repository.GetAll();
+        var todoItems = await _repository.GetAll();
         return View(todoItems);
     }
 
@@ -29,11 +29,11 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(ToDoItem item)
+    public async Task<IActionResult> Create(ToDoItem item)
     {
         if (ModelState.IsValid)
         {
-            _repository.Add(item);
+            await _repository.Add(item);
             return RedirectToAction(nameof(Index));
         }
 
@@ -41,9 +41,9 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult Edit(int id)
+    public async Task<IActionResult> Edit(int id)
     {
-        var item = _repository.GetById(id);
+        var item = await _repository.GetById(id);
         if (item == null)
         {
             return NotFound();
@@ -54,11 +54,11 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(ToDoItem item)
+    public async Task<IActionResult> Edit(ToDoItem item)
     {
         if (ModelState.IsValid)
         {
-            _repository.Update(item);
+            await _repository.Update(item);
             return RedirectToAction(nameof(Index));
         }
 
@@ -66,9 +66,9 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var item = _repository.GetById(id);
+        var item = await _repository.GetById(id);
         if (item == null)
         {
             return NotFound();
@@ -79,9 +79,9 @@ public class HomeController : Controller
 
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public IActionResult DelteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        _repository.Delete(id);
+        await _repository.Delete(id);
         return RedirectToAction(nameof(Index));
     }
 
