@@ -9,55 +9,117 @@ namespace NewsApp.Controllers;
 
 public class HomeController : Controller
 {
-    private AppDbContext _context;
-    public HomeController(AppDbContext context)
+    private AppRepository _repository;
+    public HomeController(AppRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var articles = _context.Articles
-            .Include(a => a.Author);
+        var articles = await _repository.GetAllArticles();
         return View(articles);
     }
-
-    public IActionResult Details(int? id)
+    
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
     {
-        if (id == null)
+        var article = await _repository.GetArticleById(id);
+        if (article == null)
         {
             return NotFound();
         }
-
-        var article = _context.Articles
-            .FirstOrDefault(a => a.Id == id);
-
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         return View(article);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        await LoadViewBag();
+        return View();
+    }
+    
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Article item)
     {
-        LoadViewBag();
+        await LoadViewBag();
         if (ModelState.IsValid)
         {
-            await _context.Add(item);
+            await _repository.Add(item);
             return RedirectToAction(nameof(Index));
         }
         return View(item);
     }
 
-    private void LoadViewBag()
+    private async Task LoadViewBag()
     {
         ViewBag.Authors = new SelectList(
-            _context.Authors,
+            await _repository.GetAllAuthors(),
             nameof(Author.Id),
             nameof(Author.Fullname));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var article = await _repository.GetArticleById(id.Value);
+        if (article == null)
+        {
+            return NotFound();
+        }
+
+        await LoadViewBag();
+        return View(article);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int? id, Article item)
+    {
+        if (id != item.Id)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            await _repository.Update(item);
+            return RedirectToAction();
+        }
+
+        await LoadViewBag();
+        return View(item);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var article = await _repository.GetArticleById(id.Value);
+        return View(article);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var articleToDelete = await _repository.GetArticleById(id);
+        if (articleToDelete == null)
+        {
+            return NotFound();
+        }
+
+        await _repository.Delete(articleToDelete);
+        return RedirectToAction(nameof(Index));
     }
 
     // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

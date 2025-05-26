@@ -1,11 +1,15 @@
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit Article";
 }
+
 @model Article
 
-<h1>New Article</h1>
 <div class="container">
-    <form asp-action="Create" method="post">
+    <h1>Edit Article</h1>
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+        <input type="hidden" asp-for="Id"/>
+        <input type="hidden" asp-for="CreatedAt"/>
+
         <div class="mb-2">
             <label asp-for="Headline" class="form-label"></label>
             <input asp-for="Headline" class="form-control"></input>
@@ -17,12 +21,13 @@
             <span asp-validation-for="Content"></span>
         </div>
         <div class="mb-2">
-            <label asp-for="AuthorId" class="from-label"></label>
+            <label asp-for="AuthorId" class="form-label"></label>
             <select asp-for="AuthorId" class="form-select" asp-items="@ViewBag.Authors">
                 <option value="">&lt;Autor auswählen&gt;</option>
             </select>
+            <span asp-validation-for="AuthorId"></span>
         </div>
-        <button type="submit" class="btn btn-success">Speichern</button>
+        <button type="submit" class="btn btn-success">Änderungen speichern</button>
         <a class="btn btn-danger" asp-action="Index">Zurück</a>
     </form>
 </div>

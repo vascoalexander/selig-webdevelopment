@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<NewsApp.Data.AppDbContext>();
+//builder.Services.AddScoped<NewsApp.Data.AppDbContext>();
+builder.Services.AddScoped<NewsApp.Repositories.AppRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
