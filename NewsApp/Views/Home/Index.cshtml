@@ -1,0 +1,24 @@
+@{
+    ViewBag.Title = "Start";
+    Layout = "_layout";
+}
+@model IEnumerable<Article>
+
+<div class="container">
+    <h1>News Applictation</h1>
+    @foreach (var article in Model)
+    {
+        <div class="card m-4" style="width: 18rem;">
+            <div class="card-header">
+                @article.Headline
+            </div>
+            <div class="card-body">
+                @article.ContentPreview
+            </div>
+            <div class="card-footer">
+                @article.Author?.Fullname | @article.CreatedAt.ToShortDateString()
+            </div>
+            <a asp-action="Details" class="btn btn-primary stretched-link" asp-route-id="@article.Id">Details</a>
+        </div>
+    }
+</div>

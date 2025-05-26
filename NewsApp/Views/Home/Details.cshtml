@@ -1,0 +1,15 @@
+@{
+    ViewBag.Title = "Details";
+}
+@model Article
+<div class="text-center">
+    <h1>@Model.Headline</h1>
+    <h5>@Model.Author?.Fullname</h5>
+    <h5>erstellt am @Model.CreatedAt</h5>
+    <div>
+        <p>@Model.Content</p>
+    </div>
+    <div class="text-center">
+        <a asp-action="Index" class="btn btn-primary">Zurück</a>
+    </div>
+</div>

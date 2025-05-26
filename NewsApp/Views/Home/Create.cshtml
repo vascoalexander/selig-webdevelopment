@@ -1,0 +1,28 @@
+@{
+    ViewBag.Title = "Create";
+}
+@model Article
+
+<h1>New Article</h1>
+<div class="container">
+    <form asp-action="Create" method="post">
+        <div class="mb-2">
+            <label asp-for="Headline" class="form-label"></label>
+            <input asp-for="Headline" class="form-control"></input>
+            <span asp-validation-for="Headline"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="Content" class="form-label"></label>
+            <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+            <span asp-validation-for="Content"></span>
+        </div>
+        <div class="mb-2">
+            <label aps-for="AuthorId" class="from-label"></label>
+            <select asp-for="AuthorId" class="form-select" asp-items="@ViewBag.Authors">
+                <option value="">&lt;Autor auswählen&gt;</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Speichern</button>
+        <a class="btn btn-danger" asp-action="Index">Zurück</a>
+    </form>
+</div>

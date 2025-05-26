@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-      <UserSecretsId>7702ed40-8b03-46e8-878e-d0e60bc8683d</UserSecretsId>
+      <UserSecretsId>afd5455b-40f3-4c67-8482-2dab0ac34f2a</UserSecretsId>
   </PropertyGroup>
 
     <ItemGroup>
@@ -15,10 +15,6 @@
       </PackageReference>
       <PackageReference Include="MySqlConnector" Version="2.4.0" />
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="Models\Article.cs" />
     </ItemGroup>
 
 </Project>
