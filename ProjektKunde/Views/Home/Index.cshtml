@@ -1,0 +1,35 @@
+@{
+    ViewBag.Title = "Projekte";
+}
+
+@model IEnumerable<Project>
+
+<div class="container">
+    <h1 class="mb-5 mt-3">Project Overview</h1>
+    <div class="row">
+        <div class="mb-3">
+            <a class="btn btn-primary" asp-action="Create">Create New Project</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex flex-wrap justify-content-start">
+            @foreach (var project in Model)
+            {
+                <div class="card mb-3 me-3" style="width: 32rem;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@project.Title</h5>
+                        <p class="card-text">@project.Description</p>
+                        <div class="mt-auto d-flex gap-2">
+                            <a asp-action="" class="btn btn-success" asp-route-id="@project.Id">Details</a>
+                            <a class="btn btn-warning" asp-action="" asp-route-id="@project.Id">Edit Project</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@project.Id">Delete Project</a>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        @project.Customer?.Company | Start: @project.Start.ToShortDateString() | End: @project.End.ToShortDateString()
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -6,7 +6,8 @@ public class Article
 {
     // database properties
     public int Id { get; set; }
-    [MaxLength(100)]
+    [Required(ErrorMessage = "Der Titel ist erforderlich.")]
+    [StringLength(100, ErrorMessage = "Der Titel darf maximal 100 Zeichen lang sein.")]
     public required string Headline { get; set; }
     public required string Content { get; set; }
     public DateTime CreatedAt { get; set; }

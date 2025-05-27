@@ -26,3 +26,7 @@
         <a class="btn btn-danger" asp-action="Index">Zurück</a>
     </form>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
