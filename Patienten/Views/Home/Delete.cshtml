@@ -1,0 +1,23 @@
+@{
+    ViewBag.Title = "Termin löschen";
+}
+@model Termin
+
+<body>
+    <div class="container mt-4">
+        <div class="text-center">
+            <h1>Termin löschen</h1>
+            <p><strong>ID:</strong> @Model.Id</p>
+            <p><strong>Arzt:</strong> @Model.Arzt?.Fullname</p>
+            <p><strong>Patient:</strong> @Model.Patient?.Fullname</p>
+            <p><strong>Termin:</strong> @Model.TerminZeit.ToShortDateString()</p>
+            <p><strong>Wahrgenommen:</strong> @(Model.Wahrgenommen ? "Ja" : "Nein")</p>
+            <div class="mt-auto d-flex gap-2 justify-content-center">
+                <a class="btn btn-success" asp-action="Index">Zurück</a>
+                <form asp-action="Delete" method="post">
+                    <input class="btn btn-danger" type="submit" value="Löschen">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

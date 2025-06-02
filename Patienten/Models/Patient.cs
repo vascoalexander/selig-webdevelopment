@@ -13,4 +13,6 @@ public class Patient
     public int KrankenkasseId { get; set; }
     public Krankenkasse? Krankenkasse { get; set; }
     public ICollection<Termin>? Termine { get; set; }
+
+    public string Fullname => Vorname + " " + Nachname;
 }

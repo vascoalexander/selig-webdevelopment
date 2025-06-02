@@ -10,4 +10,6 @@ public class Arzt
     [StringLength(20, ErrorMessage = "Der Vorname darf maximal 20 Zeichen lang sein.")]
     public required string Vorname { get; set; }
     public ICollection<Termin>? Termine { get; set; }
+
+    public string Fullname => Vorname + " " + Nachname;
 }
