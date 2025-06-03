@@ -4,14 +4,17 @@
 
 @model IEnumerable<Termin>
 
-<body>
-<div class="container mt-4">
+<div class="mt-4">
     <div class="d-flex justify-content-between align-items-center mt-5">
-        <h1 class="m-0">Termin-Übersicht</h1>
-        <a class="btn btn-primary" asp-action="">Neuer Termin</a>
+        <h1 class="m-0">Termin Übersicht</h1>
+        <div>
+            <a class="btn btn-primary" asp-action="">Patienten</a>
+            <a class="btn btn-primary" asp-action="">Ärzte</a>
+            <a class="btn btn-primary" asp-action="Create">Neuer Termin</a>
+        </div>
     </div>
     <hr/>
-    <table class="table text-center align-middle">
+    <table class="table text-center align-middle my-table">
         <tr>
             <th>Termin ID</th>
             <th>Arzt</th>
@@ -29,10 +32,9 @@
                 <td>@termin.Patient?.Fullname</td>
                 <td>@termin.TerminZeit.ToShortDateString()</td>
                 <td>@(termin.Wahrgenommen ? "Ja" : "Nein")</td>
-                <td><a class="btn btn-success" asp-action="">Edit</a></td>
+                <td><a class="btn btn-success" asp-action="Edit" asp-route-id="@termin.Id">Edit</a></td>
                 <td><a class="btn btn-danger" asp-action="Delete" asp-route-id="@termin.Id">X</a></td>
             </tr>
         }
     </table>
 </div>
-</body>

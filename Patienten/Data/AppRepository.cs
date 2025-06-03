@@ -22,6 +22,22 @@ public class AppRepository
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<Arzt>> GetAllAerzte()
+    {
+        return await _context.Aerzte
+            .Include(a => a.Termine)
+            .OrderBy(a => a.Id)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Patient>> GetAllPatienten()
+    {
+        return await _context.Patienten
+            .Include(p => p.Krankenkasse)
+            .Include(p => p.Termine)
+            .OrderBy(p => p.Id)
+            .ToListAsync();
+    }
     public async Task<Arzt?> GetArztById(int id)
     {
         return await _context.Aerzte.FirstOrDefaultAsync(a => a.Id == id);

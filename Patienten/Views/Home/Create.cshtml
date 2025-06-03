@@ -1,0 +1,42 @@
+@{
+    ViewBag.Title = "Termin anlegen";
+}
+
+@model Termin
+
+<div class="mt-4">
+    <h1 class="mt-5">Termin anlegen</h1>
+    <hr/>
+    <form asp-action="Create" method="post">
+        <table class="table text-center align-middle">
+            <tr>
+                <th>Arzt</th>
+                <th>Patient</th>
+                <th>Datum</th>
+                <th>Wahrgenommen</th>
+            </tr>
+            <tr>
+                <td>
+                    <select asp-for="Arzt" class="form-select" asp-items="@ViewBag.Aerzte">&lt;Arzt&gt;
+                        <option value="">-- bitte auswählen --</option>
+                    </select>
+                </td>
+                <td>
+                    <select asp-for="Patient" class="form-select" asp-items="@ViewBag.Patienten">&lt;Patient&gt;
+                        <option value="">-- bitte auswählen --</option>
+                    </select>
+                </td>
+                <td>
+                    <input asp-for="TerminZeit" type="datetime-local" class="form-control">
+                </td>
+                <td>
+                    <input asp-for="Wahrgenommen" type="checkbox" class="form-check-input">
+                </td>
+            </tr>
+        </table>
+        <div class="mt-auto d-flex gap-2 justify-content-center">
+            <a class="btn btn-danger" asp-action="Index">Zurück</a>
+            <button type="submit" class="btn btn-success">Speichern</button>
+        </div>
+    </form>
+</div>

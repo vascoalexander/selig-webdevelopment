@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<DbToApp2.Models.Database.Article>
+
+<div class="text-center">
+    <h1 class="display-4">Artikel</h1>
+    <div class="row">
+        @foreach (var article in Model)
+        {
+            <article class="col-6 my-2">
+                <div class="card h-100">
+                    <div class="card-header">
+                        @article.Headline
+                    </div>
+                    <div class="card-body">
+                        <img src="~/images/@article.ImageFile" class="img-fluid"></img>
+                        @article.ContentPreview
+                    </div>
+                    <div class="card-footer">
+                        @article.Created.ToShortDateString() | @article.Author.FullName
+                    </div>
+                </div>
+            </article>
+        }
+
+    </div>
+</div>
