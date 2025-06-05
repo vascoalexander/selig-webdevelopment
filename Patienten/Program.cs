@@ -15,7 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseMySql(
         connectionString,
-        new MySqlServerVersion(new Version(8, 0, 35)),
+        new MariaDbServerVersion(new Version(10, 11, 11)),
         mySqlOptions => mySqlOptions.EnableRetryOnFailure()
     );
 });

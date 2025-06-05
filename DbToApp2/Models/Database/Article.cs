@@ -17,7 +17,7 @@ public partial class Article
 
     public string ImageFile { get; set; } = null!;
 
-    public virtual Author Author { get; set; } = null!;
+    public virtual Author? Author { get; set; } = null!;
 
     public string ContentPreview =>
         string.IsNullOrEmpty(Content) || Content.Length < 100

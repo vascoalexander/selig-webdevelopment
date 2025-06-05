@@ -50,6 +50,9 @@ else
     // **********************************
 }
 
+builder.WebHost.ConfigureKestrel(opts =>
+    opts.Limits.MaxRequestBodySize = 5 * 1024 * 1024);
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();

@@ -1,0 +1,18 @@
+@{
+    ViewBag.Title = "File List";
+}
+
+@model List<string>
+
+
+<h1>Download images</h1>
+<div class="row">
+    @foreach (var file in Model)
+    {
+        <div class="position-relative col-3">
+            <img src="/images/@file" style="height: 12rem; width: 100%; margin: auto;" class="rounded"/>
+            <a asp-action="Download" asp-route-file="@file" class="stretched-link"></a>
+            <p class="text-center">@file</p>
+        </div>
+    }
+</div>

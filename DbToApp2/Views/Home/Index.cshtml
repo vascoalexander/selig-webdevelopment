@@ -15,11 +15,11 @@
                         @article.Headline
                     </div>
                     <div class="card-body">
-                        <img src="~/images/@article.ImageFile" class="img-fluid"></img>
+                        <img src="~/images/@article.ImageFile" class="img-fluid">
                         @article.ContentPreview
                     </div>
                     <div class="card-footer">
-                        @article.Created.ToShortDateString() | @article.Author.FullName
+                        @article.Created.ToShortDateString() | @article.Author?.FullName
                     </div>
                 </div>
             </article>
