@@ -1,0 +1,12 @@
+@{
+    ViewBag.Title = "Dashboard";
+}
+@model AppUser
+<div class="container">
+    <h1>@ViewBag.Title</h1>
+    @if (User.Identity is { IsAuthenticated: true })
+    {
+        <p>Willkommen @User.Identity.Name</p>
+    }
+    <a asp-action="Upload" class="btn btn-primary">Upload File</a>
+</div>

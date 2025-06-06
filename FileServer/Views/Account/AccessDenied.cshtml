@@ -1,0 +1,12 @@
+@{
+    ViewBag.Title = "Zugriff verweigert";
+}
+
+@model string
+
+<div class="container">
+    <h1 class="text-danger">@ViewBag.Title</h1>
+    <a asp-action="Login" class="btn btn-primary" asp-route-returnUrl="@Model">Login</a>
+    <a asp-action="Index" asp-controller="Home"></a>
+</div>
+
