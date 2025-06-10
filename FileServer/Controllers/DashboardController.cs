@@ -11,10 +11,10 @@ namespace FileServer.Controllers;
 [Authorize]
 public class DashboardController : Controller
 {
-    private readonly User _repository;
+    private readonly UserFileRepository _repository;
     private readonly UserManager<AppUser> _userManager;
 
-    public DashboardController(AppRepository repository, UserManager<AppUser> userManager)
+    public DashboardController(UserFileRepository repository, UserManager<AppUser> userManager)
     {
         _repository = repository;
         _userManager = userManager;
@@ -78,7 +78,7 @@ public class DashboardController : Controller
             UserId = user!.Id
         };
 
-        _repository.UserFiles.Add(userFile);
+        await _repository.AddFileAsync(userFile);
         await _repository.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index));
